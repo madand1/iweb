@@ -3,7 +3,7 @@ Vagrant.configure("2") do |config|
   # Servidor Web
   config.vm.define :web do |web| # Cambiado a "web"
     web.vm.box = "debian/bookworm64" # Imagen de Debian 12 (bookworm)
-    web.vm.hostname = "web" # Nombre del host simplificado
+    web.vm.hostname = "web-andy" # Nombre del host simplificado
     web.vm.synced_folder ".", "/vagrant", disabled: true
     
     # Red pública (con salida a Internet)
@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
   # Servidor de Base de Datos
   config.vm.define :bd do |db| # Cambiado a "bd"
     db.vm.box = "debian/bookworm64" # Imagen de Debian 12 (bookworm)
-    db.vm.hostname = "bd" # Nombre del host simplificado
+    db.vm.hostname = "bd-andy" # Nombre del host simplificado
     db.vm.synced_folder ".", "/vagrant", disabled: true
 
     # Red pública (con salida a Internet)
