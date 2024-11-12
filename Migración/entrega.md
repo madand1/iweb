@@ -1,6 +1,6 @@
 h1. Práctica (2 / 3): Instalación/migración de aplicaciones web PHP
 
-h2. Documenta de la forma más precisa posible cada uno de los pasos que has dado para migrar una de las dos aplicaciones.
+h2. Documenta de la forma más precisa posible cada uno de los pasos que has dado para migrar una de las dos aplicaciones y capturas de pantalla donde se demuestre que esta funcionando el cliente de NextCloud.
 
 1. Preparación de la *VPS*
 
@@ -674,11 +674,11 @@ Desde aqui ponemos el dominio que tenemos contratad que es *cloud.madan1.info*
 
 Y hemos tenido que irnos a ionos y poner el CNAME, el cual esta ubicada en *Dominios & SSL*
 
-![alt text](img/image1.png)
+!image1.png!
 
 Una vez hecho esto probamos a conectarnos desde la URL:
 
-![alt text](img/image2.png)
+!image2.png!
 
 Ahora vamos a instalar en un ordenaro el cliente de NextCloud y realizar la configuración adecuada para acceder a lo que es *mi nube*, para ello haremos lo siguiente:
 
@@ -952,22 +952,22 @@ Ahora ejecutamos el comando por terminal *nextcloud*:
 
 y nos aparecera esto por pantalla:
 
-![alt text](img/image3.png)
+!image3.png!
 Le damos a entrar y metemso nuestra dirección:
 
-![alt text](img/image4.png)
+!image4.png!
 
 Pinchamos en siguiente, el cual nos redirigira hasta aqui:
 
-![alt text](img/image5.png)
+!image5.png!
 
 El cual hemos tenido que conectar, y el cual en nextcloud desktop, tendremos lo siguiente:
 
-![alt text](img/image6.png)
+!image6.png!
 
 Y le damos a sincronizar por lo que ahroa nos saldra esta pantalla:
 
-![alt text](img/image7.png)
+!image7.png!
 
 Y ahora haciendo la prueba vamos a mover una foto:
 
@@ -991,4 +991,284 @@ madandy@toyota-hilux:~/Nextcloud/Photos$
 
 y ahora nos volvemos a meter y comrpobamos:
 
-![alt text](img/image8.png)
+!image8.png!
+
+
+h2. Las URL de acceso a las aplicaciones.
+
+</pre>
+http://cloud.madand1.info
+http://www.madand1.info
+
+</pre>
+
+################################################################################################################################################################
+
+h1. Práctica (3 / 3): Instalación/migración de aplicaciones web PHP
+
+h2. Captura de pantalla para comprobar que el navegador tiene el certificado de Let’s Encrypt.
+
+![alt text](img/image9.png)
+
+h2. ¿Qué opción has elegido? ¿Qué pruebas realiza Let’s Encrypt para asegurar que somos los administrados del sitio web al elegir esa opción?
+
+Para la página de cloud, lo haré desde aquí desde **certbot**:
+
+<pre>
+root@ford-raptor:~# sudo certbot --nginx -d cloud.madand1.info
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Enter email address (used for urgent renewal and security notices)
+ (Enter 'c' to cancel): asirandyglez@gmail.com
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Please read the Terms of Service at
+https://letsencrypt.org/documents/LE-SA-v1.4-April-3-2024.pdf. You must agree in
+order to register with the ACME server. Do you agree?
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(Y)es/(N)o: Y
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Would you be willing, once your first certificate is successfully issued, to
+share your email address with the Electronic Frontier Foundation, a founding
+partner of the Let's Encrypt project and the non-profit organization that
+develops Certbot? We'd like to send you email about our work encrypting the web,
+EFF news, campaigns, and ways to support digital freedom.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(Y)es/(N)o: Y
+Account registered.
+Requesting a certificate for cloud.madand1.info
+
+Successfully received certificate.
+Certificate is saved at: /etc/letsencrypt/live/cloud.madand1.info/fullchain.pem
+Key is saved at:         /etc/letsencrypt/live/cloud.madand1.info/privkey.pem
+This certificate expires on 2025-02-08.
+These files will be updated when the certificate renews.
+Certbot has set up a scheduled task to automatically renew this certificate in the background.
+
+Deploying certificate
+Successfully deployed certificate for cloud.madand1.info to /etc/nginx/sites-enabled/nextcloud
+Congratulations! You have successfully enabled HTTPS on https://cloud.madand1.info
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+If you like Certbot, please consider supporting our work by:
+ * Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+ * Donating to EFF:                    https://eff.org/donate-le
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+root@ford-raptor:~# 
+
+
+</pre>
+
+Comprobación de como podemos ver si se genero el certificado:
+
+<pre>
+root@ford-raptor:~# sudo ls -l /etc/letsencrypt/live/cloud.madand1.info/
+total 4
+-rw-r--r-- 1 root root 692 Nov 10 10:19 README
+lrwxrwxrwx 1 root root  42 Nov 10 10:19 cert.pem -> ../../archive/cloud.madand1.info/cert1.pem
+lrwxrwxrwx 1 root root  43 Nov 10 10:19 chain.pem -> ../../archive/cloud.madand1.info/chain1.pem
+lrwxrwxrwx 1 root root  47 Nov 10 10:19 fullchain.pem -> ../../archive/cloud.madand1.info/fullchain1.pem
+lrwxrwxrwx 1 root root  45 Nov 10 10:19 privkey.pem -> ../../archive/cloud.madand1.info/privkey1.pem
+root@ford-raptor:~# 
+
+</pre>
+
+h2. Entrega la configuración de nginx (los dos ficheros de cada virtualhost) para que funcione HTTPS y la redirección.
+
+h3. Nextcloud
+<pre>
+root@ford-raptor:~# cat  /etc/nginx/sites-available/nextcloud 
+upstream php-handler {
+    server unix:/run/php/php8.2-fpm.sock; # Asegúrate de que coincida con la versión de PHP
+}
+
+server {
+
+    server_name cloud.madand1.info;
+
+    client_max_body_size 512M;
+    client_body_timeout 300s;
+    fastcgi_buffers 64 4K;
+
+    root /var/www/nextcloud/nextcloud; # Asegúrate de que esta sea la ruta correcta
+    index index.php index.html /index.php$request_uri;
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php8.2-fpm.sock;
+        fastcgi_read_timeout 600;
+    }
+
+    gzip on;
+    gzip_vary on;
+    gzip_comp_level 4;
+    gzip_min_length 256;
+    gzip_proxied expired no-cache no-store private no_last_modified no_etag auth;
+    gzip_types application/atom+xml application/javascript application/json application/ld+json application/manifest+json application/rss+xml application/vnd.geo+json application/vnd.ms-fontobject application/x-font-ttf application/x-web-app-manifest+json application/xhtml+xml application/xml font/opentype image/bmp image/svg+xml image/x-icon text/cache-manifest text/css text/plain text/vcard text/vnd.rim.location.xloc text/vtt text/x-component text/x-cross-domain-policy;
+
+    add_header Referrer-Policy "no-referrer" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Download-Options "noopen" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Permitted-Cross-Domain-Policies "none" always;
+    add_header X-Robots-Tag "none" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+
+    fastcgi_hide_header X-Powered-By;
+
+    location = /robots.txt {
+        allow all;
+        log_not_found off;
+        access_log off;
+    }
+
+    location ^~ /.well-known {
+        location = /.well-known/carddav { return 301 /remote.php/dav/; }
+        location = /.well-known/caldav { return 301 /remote.php/dav/; }
+        location /.well-known/acme-challenge { try_files $uri $uri/ =404; }
+        location /.well-known/pki-validation { try_files $uri $uri/ =404; }
+        return 301 /index.php$request_uri;
+    }
+
+    location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)(?:$|/) { return 404; }
+    location ~ ^/(?:\.|autotest|occ|issue|indie|db_|console) { return 404; }
+
+    location ~ \.php(?:$|/) {
+        rewrite ^/(?!index|remote|public|cron|core/ajax/update|status|ocs/v[12]|updater/.+|oc[ms]-provider/.+|.+/richdocumentscode/proxy) /index.php$request_uri;
+
+        fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+        set $path_info $fastcgi_path_info;
+
+        try_files $fastcgi_script_name =404;
+
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $path_info;
+
+        fastcgi_param modHeadersAvailable true;
+        fastcgi_param front_controller_active true;
+        fastcgi_pass php-handler;
+
+        fastcgi_intercept_errors on;
+        fastcgi_request_buffering off;
+    }
+
+    location ~ \.(?:css|js|svg|gif|png|jpg|ico)$ {
+        try_files $uri /index.php$request_uri;
+        expires 6M;
+        access_log off;
+    }
+
+    location ~ \.woff2?$ {
+        try_files $uri /index.php$request_uri;
+        expires 7d;
+        access_log off;
+    }
+
+    location /remote {
+        return 301 /remote.php$request_uri;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.php$request_uri;
+    }
+
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/cloud.madand1.info/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/cloud.madand1.info/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+
+server {
+    if ($host = cloud.madand1.info) {
+        return 301 https://$host$request_uri; #Redirigir HTTP a HTTPS
+    } # managed by Certbot
+
+
+    listen 80;
+    listen [::]:80;
+
+    server_name cloud.madand1.info;
+    return 404; # managed by Certbot
+
+
+}
+</pre>
+
+h3. Drupal
+
+<pre>
+
+root@ford-raptor:/etc/nginx/sites-available# cat drupal
+server {
+    listen 80;
+    server_name www.madand1.info;
+    root /var/www/drupla/drupal;
+
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    return 301 https://$host$request_uri;
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock; # Asegúrate de que esta línea coincida con tu versión de PHP
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+
+</pre>
+
+h2. Entrega la configuración del cron donde se ve que se hará la renovación cada 3 meses.
+
+
+<pre>
+# Edit this file to introduce tasks to be run by cron.
+# 
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+# 
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').
+# 
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+# 
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+# 
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+# 
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+
+0 0 1 */3 * /usr/bin/certbot renew –quiet
+</pre>
+
+
+h2. Captura de pantalla accediendo a las dos páginas con https. Captura de pantalla con los detalles del certificado.
+
+![alt text](img/image13.png)
+
+![alt text](img/image10.png)
+
+h2. Captura de pantalla donde se vea el cliente de NextCloud conectado por https.
+
+![alt text](image14.png)
