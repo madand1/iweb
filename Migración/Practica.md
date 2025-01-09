@@ -2042,7 +2042,7 @@ Vamos a hacer de forma automatoizada cada tres meses se reinicie el certbot:
 
 Comprueba que las páginas son accesibles por HTTPS y visualiza los detalles del certificado que has creado.
 
-https:cloud.madand1.info
+https://cloud.madand1.info
 
 ![alt text](img/image10.png)
 
